@@ -85,7 +85,7 @@
   }
 
   button {
-    margin-top: 20px;
+    margin-top: 10px;
     padding: 10px 20px;
     background: #9b59b6;
     border: none;
@@ -111,10 +111,11 @@
     <div class="cake-message">HAPPY BIRTHDAY, ATE NGL! HAHAHHAHA</div>
   </div>
 
-  <audio id="music" src="https://raw.githubusercontent.com/elishajanep/HBD_NGL/refs/heads/main/hbd.mp3" loop></audio>
+  <audio id="music" src="happy-birthday.mp3" loop></audio>
 
-  <!-- Start Music button -->
+  <!-- Start and Stop Music buttons -->
   <button onclick="document.getElementById('music').play()">Start Music 🎵</button>
+  <button onclick="document.getElementById('music').pause()">Stop Music ✋</button>
 
 <script>
   async function startMic() {
@@ -132,4 +133,24 @@
       function checkVolume() {
         analyser.getByteTimeDomainData(dataArray);
         let sum = 0;
-        for (
+        for (let i = 0; i < dataArray.length; i++) {
+          sum += Math.abs(dataArray[i] - 128);
+        }
+        const volume = sum / dataArray.length;
+
+        if (volume > 20) { // threshold for "blowing"
+          flame.style.display = 'none';
+          music.play();
+        }
+        requestAnimationFrame(checkVolume);
+      }
+      checkVolume();
+    } catch (err) {
+      console.error('Microphone access denied:', err);
+    }
+  }
+
+  startMic();
+</script>
+</body>
+</html>
