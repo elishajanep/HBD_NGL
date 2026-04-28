@@ -138,7 +138,7 @@
         }
         const volume = sum / dataArray.length;
 
-        if (volume > 20) { // threshold for "blowing"
+        if (volume > 5) { // threshold for "blowing"
           flame.style.display = 'none';
           music.play();
         }
