@@ -120,7 +120,7 @@
 
         if (volume > 20) { // threshold for "blowing"
           flame.style.display = 'none';
-          music.play();
+          music.play(hbd.mp3);
         }
         requestAnimationFrame(checkVolume);
       }
