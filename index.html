@@ -12,7 +12,7 @@
     height: 100vh;
     background: #f3e5f5; /* soft lavender background */
     flex-direction: column;
-    font-family: "Arial black", cursive, sans-serif;
+    font-family: "Comic Sans MS", cursive, sans-serif;
   }
 
   .cake {
@@ -83,6 +83,22 @@
     from { transform: scale(1); opacity: 1; }
     to { transform: scale(1.2); opacity: 0.8; }
   }
+
+  button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #9b59b6;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px #6c3483;
+  }
+
+  button:hover {
+    background: #8e44ad;
+  }
 </style>
 </head>
 <body>
@@ -95,7 +111,10 @@
     <div class="cake-message">HAPPY BIRTHDAY, ATE NGL! HAHAHHAHA</div>
   </div>
 
-  <audio id="music" src="https://github.com/elishajanep/HBD_NGL/raw/refs/heads/main/hbd.mp3">autoplay loop</audio>
+  <audio id="music" src="happy-birthday.mp3" loop></audio>
+
+  <!-- Start Music button -->
+  <button onclick="document.getElementById('music').play()">Start Music 🎵</button>
 
 <script>
   async function startMic() {
@@ -113,24 +132,4 @@
       function checkVolume() {
         analyser.getByteTimeDomainData(dataArray);
         let sum = 0;
-        for (let i = 0; i < dataArray.length; i++) {
-          sum += Math.abs(dataArray[i] - 128);
-        }
-        const volume = sum / dataArray.length;
-
-        if (volume > 20) { // threshold for "blowing"
-          flame.style.display = 'none';
-          music.play(hbd.mp3);
-        }
-        requestAnimationFrame(checkVolume);
-      }
-      checkVolume();
-    } catch (err) {
-      console.error('Microphone access denied:', err);
-    }
-  }
-
-  startMic();
-</script>
-</body>
-</html>
+        for (
